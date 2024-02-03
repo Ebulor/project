@@ -7,9 +7,8 @@ import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { db, auth } from "../utils/firebase";
 
-export default function allNotifications() {
+export default function AllNotifications() {
   let check = true;
-  const [count, setCount] = useState([]);
 
   const route = useRouter();
   if (route.query.value === "notifications" || route.query.value === "")
@@ -21,13 +20,7 @@ export default function allNotifications() {
   return (
     <section className="my-20 p-8 shadow-lg rounded-lg max-w-full mx-auto w-full bg-white">
       <Tabs></Tabs>
-      <div>
-        {check ? (
-          <Notifications count={setCount} />
-        ) : (
-          <FriendRequests count={setCount} />
-        )}
-      </div>
+      <div>{check ? <Notifications /> : <FriendRequests />}</div>
     </section>
   );
 }

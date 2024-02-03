@@ -11,7 +11,7 @@ import {
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 
-export default function createPost() {
+export default function CreatePost() {
   const [user, loading] = useAuthState(auth);
   const [post, setPost] = useState({ description: "" });
   const route = useRouter();

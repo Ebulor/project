@@ -13,7 +13,7 @@ import {
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 
-export default function friendRequests() {
+export default function FriendRequests() {
   const route = useRouter();
   const [user, loading] = useAuthState(auth);
   const [friends, setFriends] = useState([]);

@@ -65,7 +65,7 @@ export default function Login() {
     } else {
       console.log("");
     }
-  }, [user]);
+  }, [user, route]);
 
   return (
     <div className="modal-container shadow-xl fixed p-8 text-gray-700 rounded-lg overflow-y-auto top-24 bottom-0 bg-white">

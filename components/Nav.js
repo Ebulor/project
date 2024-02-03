@@ -117,12 +117,16 @@ export default function Nav() {
             {user.photoURL == null ? (
               currentUser &&
               currentUser.map((user) => (
-                <div className="bg-white border-solid border-2 border-black-600 w-12 h-12 rounded-full flex items-center justify-center">
+                <div
+                  key={user.user}
+                  className="bg-white border-solid border-2 border-black-600 w-12 h-12 rounded-full flex items-center justify-center"
+                >
                   <Link href="/dashboard">
                     <img
                       className="w-6/12 cursor-pointer"
                       src={user.avatar}
                       referrerPolicy="no-referrer"
+                      alt=""
                     />
                   </Link>
                 </div>
@@ -133,6 +137,7 @@ export default function Nav() {
                   className="w-12 rounded-full cursor-pointer"
                   src={user.photoURL}
                   referrerPolicy="no-referrer"
+                  alt=""
                 />
               </Link>
             )}
