@@ -72,7 +72,7 @@ export default function Login() {
       <div className="modal-content w-96">
         <h2 className="text-2xl font-medium text-center">Sign in</h2>
         <div className="text-center my-4">
-          Dont have an account?
+          Don't have an account?
           <Link href="/auth/signUp" className="underline">
             Sign Up
           </Link>

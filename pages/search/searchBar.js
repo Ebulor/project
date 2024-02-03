@@ -61,8 +61,7 @@ export default function SearchBar() {
         )
       );
     }
-    console.log(searchInput);
-  }, [searchInput]);
+  }, [searchInput, allUsers]);
   return (
     <section className="w-3/4 ">
       <div className="search">
