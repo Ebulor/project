@@ -62,7 +62,7 @@ export default function Home() {
           setAllPosts([...personalData, ...data]);
         };
         getPersonal();
-        console.log(allPosts);
+
         return unsubscribe;
       });
     };

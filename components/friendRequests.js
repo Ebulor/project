@@ -123,7 +123,7 @@ export default function FriendRequests() {
           );
         })
       ) : (
-        <div>No requests yet</div>
+        <div className="py-4 px-8">No requests yet</div>
       )}
     </div>
   );
