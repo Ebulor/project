@@ -37,10 +37,14 @@ export default function SignUp() {
   };
   const GoogleSignUp = async (e) => {
     e.preventDefault();
+    const docRef = doc(db, "usernames", userName);
+    const dataSnap = await getDoc(docRef);
     try {
-      if (userName === "" || validUserName == false) {
+      if (userName === "" || dataSnap.exists()) {
+        setValidUsername(false);
         return;
       } else {
+        setValidUsername(true);
         const result = await signInWithPopup(auth, googleProvider);
 
         await setDoc(doc(db, "users", result.user.uid), {
@@ -60,17 +64,17 @@ export default function SignUp() {
 
   const handleUserName = async (e) => {
     setUserName(e.target.value);
-    if (e.target.value === "") {
-      return;
-    } else {
-      const docRef = doc(db, "usernames", e.target.value);
-      const dataSnap = await getDoc(docRef);
-      if (dataSnap.exists()) {
-        setValidUsername(false);
-      } else {
-        setValidUsername(true);
-      }
-    }
+    // if (e.target.value === "") {
+    //   return;
+    // } else {
+    //   const docRef = doc(db, "usernames", e.target.value);
+    //   const dataSnap = await getDoc(docRef);
+    //   if (dataSnap.exists()) {
+    //     setValidUsername(false);
+    //   } else {
+    //     setValidUsername(true);
+    //   }
+    // }
   };
 
   const validationSchema = Yup.object().shape({
@@ -170,7 +174,7 @@ export default function SignUp() {
                   ? "Username cannot be empty"
                   : validUserName
                   ? ""
-                  : userName + " is already taken"}
+                  : " This username is already taken"}
               </span>
             </div>
             <button
