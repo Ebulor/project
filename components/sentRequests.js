@@ -65,8 +65,8 @@ export default function SentRequets() {
                   src={friendDetails.avatar}
                   alt=""
                 />
-                <p className="px-2 text-md">
-                  You sent {friendDetails.username} a friend request
+                <p className="px-2 text-sm sm:text-md">
+                  {friendDetails.username}
                 </p>
                 <button
                   className="font-medium bg-pink-500 text-white py-2 px-4 rounded-md text-sm ml-auto"

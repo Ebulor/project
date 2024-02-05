@@ -13,7 +13,7 @@ import Link from "next/link";
 import { FaComment } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
-
+import { format } from "date-fns";
 export default function Home() {
   const route = useRouter();
   const [user, loading] = useAuthState(auth);
@@ -87,26 +87,41 @@ export default function Home() {
                     <FaComment className="text-lg" />
                   </button>
                 </Link>
+                <p className="ml-auto text-sm sm:text-md">
+                  {format(
+                    new Date(
+                      post.timestamp.seconds * 1000 +
+                        post.timestamp.nanoseconds / 1000000
+                    ).toDateString(),
+                    "MMM do"
+                  )}{" "}
+                  {new Date(
+                    post.timestamp.seconds * 1000 +
+                      post.timestamp.nanoseconds / 1000000
+                  ).toLocaleTimeString()}
+                </p>
               </div>
             </Message>
           </div>
         ))
       ) : (
-        <div className="bg-white rounded-lg p-8 flex flex-col font-roboto">
+        <div className="bg-white rounded-lg sm:p-8 flex flex-col font-roboto p-0.5">
           <h1 className="text-2xl text-center font-extrabold leading-10">
             This is a safe space, you can share your thoughts!
           </h1>
 
-          <div className="flex flex-col w-6/12 items-center justify-center self-center mt-4 font-satisfy">
-            <Link href="/post">
-              <button className="font-medium bg-cyan-500 text-white my-5 py-2 px-4 rounded-lg">
-                create your first post!
-              </button>
+          <div className="flex flex-col sm:w-6/12 items-center justify-center self-center mt-4 font-satisfy w-fit">
+            <Link
+              href="/post"
+              className="font-medium bg-cyan-500 text-white my-5 py-2 px-4 rounded-lg text-center"
+            >
+              create your first post!
             </Link>
-            <Link href="/search/searchBar">
-              <button className="font-medium bg-cyan-500 text-white my-5 py-2 px-4 rounded-lg ">
-                Add a friend!
-              </button>
+            <Link
+              href="/search/searchBar"
+              className="font-medium bg-cyan-500 text-white my-5 py-2 px-4 rounded-lg "
+            >
+              Add a friend!
             </Link>
           </div>
         </div>

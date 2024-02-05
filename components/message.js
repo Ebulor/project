@@ -1,5 +1,5 @@
 import { Children } from "react";
-
+import { format } from "date-fns";
 export default function Message({
   children,
   avatar,
@@ -16,14 +16,6 @@ export default function Message({
           referrerPolicy="no-referrer"
         ></img>
         <h2>{username}</h2>
-        <p className="ml-auto">
-          {new Date(
-            timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000
-          ).toDateString()}{" "}
-          {new Date(
-            timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000
-          ).toLocaleTimeString()}
-        </p>
       </div>
       <div className="py-4">
         <p className="flex flex-wrap">{description}</p>

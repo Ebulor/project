@@ -16,6 +16,7 @@ import { auth, db } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { format } from "date-fns";
 import { BsTrash2Fill } from "react-icons/bs";
 
 export default function Post() {
@@ -102,7 +103,21 @@ export default function Post() {
       {post.map((data) => {
         return (
           <div key={routeData.value}>
-            <Message {...data}></Message>{" "}
+            <Message {...data}>
+              <p className="w-full text-end mt-4 text-md">
+                {format(
+                  new Date(
+                    data.timestamp.seconds * 1000 +
+                      data.timestamp.nanoseconds / 1000000
+                  ).toDateString(),
+                  "MMM do"
+                )}{" "}
+                {new Date(
+                  data.timestamp.seconds * 1000 +
+                    data.timestamp.nanoseconds / 1000000
+                ).toLocaleTimeString()}
+              </p>
+            </Message>{" "}
             <div className="my-4">
               <div className="flex">
                 <input
@@ -150,13 +165,16 @@ export default function Post() {
                         ""
                       )}
                       <p className="ml-auto">
+                        {format(
+                          new Date(
+                            data.timestamp.seconds * 1000 +
+                              data.timestamp.nanoseconds / 1000000
+                          ).toDateString(),
+                          "MMM do"
+                        )}{" "}
                         {new Date(
-                          comment.timestamp.seconds * 1000 +
-                            comment.timestamp.nanoseconds / 1000000
-                        ).toDateString()}{" "}
-                        {new Date(
-                          comment.timestamp.seconds * 1000 +
-                            comment.timestamp.nanoseconds / 1000000
+                          data.timestamp.seconds * 1000 +
+                            data.timestamp.nanoseconds / 1000000
                         ).toLocaleTimeString()}
                       </p>
                     </div>

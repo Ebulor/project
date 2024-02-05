@@ -150,7 +150,7 @@ export default function SignUp() {
 
   return (
     <div className="modal-container shadow-xl fixed p-8 text-gray-700 rounded-lg overflow-y-auto top-24 bottom-0 bg-white">
-      <div className="modal-content w-96">
+      <div className="modal-content w-96 xs:w-fit">
         <div
           className={`${route.query.value === "sign_up" ? "flex" : "hidden"}`}
         >

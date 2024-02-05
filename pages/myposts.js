@@ -18,6 +18,7 @@ import Message from "../components/message";
 import { BsTrash2Fill } from "react-icons/bs";
 import { AiFillEdit } from "react-icons/ai";
 import Link from "next/link";
+import { format } from "date-fns";
 
 export default function MyPosts() {
   const route = useRouter();
@@ -58,7 +59,7 @@ export default function MyPosts() {
     getData();
   }, [user, loading]);
   return (
-    <div className="my-20 p-8 shadow-lg rounded-lg max-w-full mx-auto w-full bg-blue-200">
+    <div className="my-20 p-2 sm:p-8 shadow-lg rounded-lg max-w-full mx-auto w-full bg-blue-200">
       {posts.map((post) => {
         return (
           <div key={post.id}>
@@ -86,6 +87,19 @@ export default function MyPosts() {
                   <BsTrash2Fill className="text-lg" /> Delete
                 </button>
               </div>
+              <p className="w-full text-end mt-4 text-md">
+                {format(
+                  new Date(
+                    post.timestamp.seconds * 1000 +
+                      post.timestamp.nanoseconds / 1000000
+                  ).toDateString(),
+                  "MMM do"
+                )}{" "}
+                {new Date(
+                  post.timestamp.seconds * 1000 +
+                    post.timestamp.nanoseconds / 1000000
+                ).toLocaleTimeString()}
+              </p>
             </Message>
           </div>
         );

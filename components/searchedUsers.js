@@ -69,13 +69,7 @@ export default function SearchedUsers({
   return (
     <div className="bg-white p-4 my-4 border-solid border-2 border-black-600 rounded-lg">
       <div className="flex items-center gap-2">
-        {avatar == null ? (
-          <div className="bg-black rounded-full w-14 h-14 text-center flex items-center justify-center">
-            <p className="text-white text-sm">profile</p>
-          </div>
-        ) : (
-          <img className="w-12 rounded-full cursor-pointer" src={avatar} />
-        )}
+        <img className="w-8 rounded-full cursor-pointer" src={avatar} />
 
         <h2>{username}</h2>
         {isUser ? (

@@ -26,7 +26,7 @@ export default function Dashboard() {
     getData();
   }, [user, loading]);
   return (
-    <div className="flex flex-col py-4 w-full bg-white p-10 rounded-lg">
+    <div className="flex flex-col py-4 w-full bg-white p-0.5 sm:p-10 rounded-lg">
       <h1 className="text-2xl font-bold py-2">Dashboard</h1>
       <Link href="/myposts">
         <button className="text-lg font-medium py-2">

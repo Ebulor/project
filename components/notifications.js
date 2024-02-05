@@ -29,7 +29,6 @@ export default function Notifications({ count }) {
       setNotifications(
         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
-      count({ ...notifications.length });
     });
 
     return unsubscribe;
@@ -93,12 +92,12 @@ export default function Notifications({ count }) {
                 />
                 <h2 className="ml-4">
                   {notification.username}{" "}
-                  <span className="text-sm">left a comment on your post</span>
+                  <span className="text-sm">left you a comment</span>
                 </h2>
 
                 <IoMdCloseCircleOutline
                   onClick={() => removeNotification(notification.id)}
-                  className="ml-auto text-xl cursor-pointer"
+                  className="ml-auto text-xl  cursor-pointer"
                 />
               </div>
               <div className="my-4">

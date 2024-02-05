@@ -7,11 +7,11 @@ import {
   onSnapshot,
   doc,
 } from "firebase/firestore";
-import { db, auth } from "../../utils/firebase";
-import SearchedUsers from "../../components/searchedUsers";
+import { db, auth } from "../utils/firebase";
+import SearchedUsers from "../components/searchedUsers";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-export default function SearchBar() {
+export default function SearchUser() {
   const [searchInput, setSearchInput] = useState("");
   const [searchedUsers, setSearchedUsers] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
@@ -63,7 +63,7 @@ export default function SearchBar() {
     }
   }, [searchInput, allUsers]);
   return (
-    <section className="w-3/4 ">
+    <section className="w-3/4 xs:w-max">
       <div className="search">
         <TextField
           id="outlined-search"

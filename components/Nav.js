@@ -91,11 +91,8 @@ export default function Nav() {
           </Link>
         )}
         {user && (
-          <div className="flex items-center gap-6">
-            <Link
-              href="/search/searchBar"
-              className="font-medium py-2 px-4 text-sm"
-            >
+          <div className="flex items-center gap-6 xs:gap-[1.2rem]">
+            <Link href="/searchUser" className="font-medium py-2 px-4 text-sm">
               <FaSearch />
             </Link>
             <Link

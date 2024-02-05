@@ -74,7 +74,7 @@ export default function CreatePost() {
   }, [user, loading]);
 
   return (
-    <div className="my-20 p-12 shadow-lg rounded-lg max-w-md mx-auto w-full bg-white">
+    <div className="my-20 px-4 py-12 sm:p-12 shadow-lg rounded-lg max-w-md mx-auto w-full bg-white">
       <form onSubmit={submitPost}>
         <h1 className="text-2xl font-bold">
           {post.hasOwnProperty("id") ? "Edit your post" : "Create a new post"}

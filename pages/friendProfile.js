@@ -15,6 +15,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import Message from "../components/message";
+import { format } from "date-fns";
 
 export default function FriendPofile() {
   const [user, loading] = useAuthState(auth);
@@ -53,7 +54,7 @@ export default function FriendPofile() {
     return unsubscribe;
   }, [routeData.id, user, loading]);
   return (
-    <div className="my-20 p-8 shadow-lg rounded-lg max-w-full mx-auto w-full bg-white">
+    <div className="my-20 p-6 sm:p-8 shadow-lg rounded-lg max-w-full mx-auto w-full bg-white">
       <div>
         {friendData.map((data, index) => {
           return (
@@ -71,19 +72,32 @@ export default function FriendPofile() {
         })}
 
         <div className="posts mt-8">
-          {friendsPosts.map((post) => {
+          {friendsPosts.map((post, index) => {
             return (
-              <Message {...post} key={post.id}>
-                <Link
-                  href={{
-                    pathname: "/post",
-                    query: { value: post.id },
-                  }}
-                >
-                  <button>
+              <Message {...post} key={index}>
+                <div className="flex">
+                  <Link
+                    href={{
+                      pathname: "/post",
+                      query: { value: post.id },
+                    }}
+                  >
                     <FaComment className="text-lg" />
-                  </button>
-                </Link>
+                  </Link>
+                  <p className="ml-auto text-sm sm:text-md">
+                    {format(
+                      new Date(
+                        post.timestamp.seconds * 1000 +
+                          post.timestamp.nanoseconds / 1000000
+                      ).toDateString(),
+                      "MMM do"
+                    )}{" "}
+                    {new Date(
+                      post.timestamp.seconds * 1000 +
+                        post.timestamp.nanoseconds / 1000000
+                    ).toLocaleTimeString()}
+                  </p>
+                </div>
               </Message>
             );
           })}
