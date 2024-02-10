@@ -26,7 +26,6 @@ export default function SearchedUsers({
 }) {
   const [currentUser, loading] = useAuthState(auth);
   const route = useRouter();
-  const [count, setCount] = useState(1);
 
   const sendFriendRequest = async (id) => {
     const docRef = doc(
@@ -34,10 +33,13 @@ export default function SearchedUsers({
       `users/${id}/allNotifications/${id}/friendRequests`,
       currentUser.uid
     );
+    const friendRef = doc(db, "users", currentUser.uid);
+    const friendSnap = await getDoc(friendRef);
+
     await setDoc(docRef, {
       id: currentUser.uid,
-      avatar: currentUser.photoURL,
-      username: currentUser.displayName,
+      avatar: friendSnap.data().avatar,
+      username: friendSnap.data().username,
       timestamp: serverTimestamp(),
     });
 
@@ -48,6 +50,7 @@ export default function SearchedUsers({
     );
     const userRef = doc(db, "users", id);
     const docSnap = await getDoc(userRef);
+
     await setDoc(sentRef, {
       id: id,
       avatar: docSnap.data().avatar,

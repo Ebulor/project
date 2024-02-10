@@ -38,45 +38,47 @@ export default function MyPals() {
     getFriends();
   }, [user, loading]);
   return (
-    <div className="my-10 p-8 shadow-lg rounded-lg max-w-full mx-auto w-full bg-blue-200">
-      {friends.length > 0 ? (
-        friends.map((friendDetails) => {
-          return (
-            <div
-              key={friendDetails.id}
-              className="bg-white p-4 my-4 border-solid shadow-lg border-black-600 rounded-lg flex flex-row items-center flex-wrap sm:flex-nowrap "
-            >
-              <img
-                className="w-10 rounded-full"
-                src={friendDetails.avatar}
-                alt=""
-              />
-              <h2 className="ml-4">{friendDetails.username}</h2>
-              <div className="flex gap-4 ml-auto w-full justify-between py-4 sm:w-max">
-                <Link
-                  href={{
-                    pathname: "/friendProfile",
-                    query: { value: friendDetails.id },
-                  }}
-                  className="font-medium bg-cyan-500 text-white py-2 px-4 rounded-lg text-sm"
-                >
-                  View profile
-                </Link>
-                <button
-                  className="text-pink-600 flex items-center justify-center gap-2 py-2 text-sm"
-                  onClick={() => removeFriend(friendDetails.id)}
-                >
-                  <p className="hidden sm:block">Remove friend</p>
-                  <BsTrash2Fill className="text-2xl" />
-                </button>
+    user && (
+      <div className="my-10 p-8 shadow-lg rounded-lg max-w-full mx-auto w-full bg-blue-200">
+        {friends.length > 0 ? (
+          friends.map((friendDetails) => {
+            return (
+              <div
+                key={friendDetails.id}
+                className="bg-white p-4 my-4 border-solid shadow-lg border-black-600 rounded-lg flex flex-row items-center flex-wrap sm:flex-nowrap "
+              >
+                <img
+                  className="w-10 rounded-full"
+                  src={friendDetails.avatar}
+                  alt=""
+                />
+                <h2 className="ml-4">{friendDetails.username}</h2>
+                <div className="flex gap-4 ml-auto w-full justify-between py-4 sm:w-max">
+                  <Link
+                    href={{
+                      pathname: "/friend_profile",
+                      query: { value: friendDetails.id },
+                    }}
+                    className="font-medium bg-cyan-500 text-white py-2 px-4 rounded-lg text-sm"
+                  >
+                    View profile
+                  </Link>
+                  <button
+                    className="text-pink-600 flex items-center justify-center gap-2 py-2 text-sm"
+                    onClick={() => removeFriend(friendDetails.id)}
+                  >
+                    <p className="hidden sm:block">Remove friend</p>
+                    <BsTrash2Fill className="text-2xl" />
+                  </button>
+                </div>
               </div>
-            </div>
-          );
-        })
-      ) : (
-        <div>No friends yet</div>
-      )}
-    </div>
+            );
+          })
+        ) : (
+          <div>No friends yet</div>
+        )}
+      </div>
+    )
   );
 }
 // setFeed(allPosts.filter((post) => allPosts.includes(post.id)));

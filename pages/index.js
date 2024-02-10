@@ -71,61 +71,63 @@ export default function Home() {
   }, [user, loading]);
 
   return (
-    <div className="my-10 p-8 shadow-lg rounded-lg max-w-full mx-auto w-full bg-white">
-      {allPosts.length > 0 ? (
-        allPosts.map((post) => (
-          <div key={post.id}>
-            <Message {...post} userID={post.user}>
-              <div className="flex justify-between items-end">
-                <Link
-                  href={{
-                    pathname: "/post",
-                    query: { value: post.id },
-                  }}
-                >
-                  <button>
-                    <FaComment className="text-lg" />
-                  </button>
-                </Link>
-                <p className="ml-auto text-sm sm:text-md">
-                  {format(
-                    new Date(
+    user && (
+      <div className="my-10 p-8 shadow-lg rounded-lg max-w-full mx-auto w-full bg-white">
+        {allPosts.length > 0 ? (
+          allPosts.map((post) => (
+            <div key={post.id}>
+              <Message {...post} userID={post.user}>
+                <div className="flex justify-between items-end">
+                  <Link
+                    href={{
+                      pathname: "/post",
+                      query: { value: post.id },
+                    }}
+                  >
+                    <button>
+                      <FaComment className="text-lg" />
+                    </button>
+                  </Link>
+                  <p className="ml-auto text-sm sm:text-md">
+                    {format(
+                      new Date(
+                        post.timestamp.seconds * 1000 +
+                          post.timestamp.nanoseconds / 1000000
+                      ).toDateString(),
+                      "MMM do"
+                    )}{" "}
+                    {new Date(
                       post.timestamp.seconds * 1000 +
                         post.timestamp.nanoseconds / 1000000
-                    ).toDateString(),
-                    "MMM do"
-                  )}{" "}
-                  {new Date(
-                    post.timestamp.seconds * 1000 +
-                      post.timestamp.nanoseconds / 1000000
-                  ).toLocaleTimeString()}
-                </p>
-              </div>
-            </Message>
-          </div>
-        ))
-      ) : (
-        <div className="bg-white rounded-lg sm:p-8 flex flex-col font-roboto p-0.5">
-          <h1 className="text-2xl text-center font-extrabold leading-10">
-            This is a safe space, you can share your thoughts!
-          </h1>
+                    ).toLocaleTimeString()}
+                  </p>
+                </div>
+              </Message>
+            </div>
+          ))
+        ) : (
+          <div className="bg-white rounded-lg sm:p-8 flex flex-col font-roboto p-0.5">
+            <h1 className="text-2xl text-center font-extrabold leading-10">
+              This is a safe space, you can share your thoughts!
+            </h1>
 
-          <div className="flex flex-col sm:w-6/12 items-center justify-center self-center mt-4 font-satisfy w-fit">
-            <Link
-              href="/post"
-              className="font-medium bg-cyan-500 text-white my-5 py-2 px-4 rounded-lg text-center"
-            >
-              create your first post!
-            </Link>
-            <Link
-              href="/search/searchBar"
-              className="font-medium bg-cyan-500 text-white my-5 py-2 px-4 rounded-lg "
-            >
-              Add a friend!
-            </Link>
+            <div className="flex flex-col sm:w-6/12 items-center justify-center self-center mt-4 font-satisfy w-fit">
+              <Link
+                href="/post"
+                className="font-medium bg-cyan-500 text-white my-5 py-2 px-4 rounded-lg text-center"
+              >
+                create your first post!
+              </Link>
+              <Link
+                href="/search/searchBar"
+                className="font-medium bg-cyan-500 text-white my-5 py-2 px-4 rounded-lg "
+              >
+                Add a friend!
+              </Link>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    )
   );
 }

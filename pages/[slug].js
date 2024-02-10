@@ -82,7 +82,7 @@ export default function Details({ post }) {
 
   return (
     <div className="my-20 p-8 shadow-lg rounded-lg max-w-full mx-auto w-full ">
-      <p>baby</p>
+      <p>boo</p>
       {/* <Message {...routeData}></Message>
       <div className="my-4">
         <div className="flex">

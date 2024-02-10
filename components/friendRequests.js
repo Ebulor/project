@@ -37,35 +37,36 @@ export default function FriendRequests() {
 
   const acceptRequest = async (id) => {
     const docRef = doc(db, "users", id);
+    const userRef = doc(db, "users", user.uid);
     const friendRef = doc(db, `users/${user.uid}/friends`, id);
     const checkRef = doc(db, `users/${id}/friends`, user.uid);
     const docSnap = await getDoc(docRef);
+    const userSnap = await getDoc(userRef);
 
-    console.log(docSnap);
-    // await setDoc(friendRef, {
-    //   id: id,
-    //   username: docSnap.data().username,
-    //   avatar: docSnap.data().avatar,
-    // });
-    // await setDoc(checkRef, {
-    //   id: user.uid,
-    //   username: user.displayName,
-    //   avatar: user.photoURL,
-    // });
-    // await deleteDoc(
-    //   doc(
-    //     db,
-    //     `users/${user.uid}/allNotifications/${user.uid}/friendRequests`,
-    //     id
-    //   )
-    // );
-    // await deleteDoc(
-    //   doc(db, `users/${id}/allNotifications/${id}/sentRequests`, user.uid)
-    // );
-    // toast.success("Friend has been added!", {
-    //   position: toast.POSITION.TOP_CENTER,
-    //   autoClose: 1500,
-    // });
+    await setDoc(friendRef, {
+      id: id,
+      username: docSnap.data().username,
+      avatar: docSnap.data().avatar,
+    });
+    await setDoc(checkRef, {
+      id: user.uid,
+      username: userSnap.data().username,
+      avatar: userSnap.data().avatar,
+    });
+    await deleteDoc(
+      doc(
+        db,
+        `users/${user.uid}/allNotifications/${user.uid}/friendRequests`,
+        id
+      )
+    );
+    await deleteDoc(
+      doc(db, `users/${id}/allNotifications/${id}/sentRequests`, user.uid)
+    );
+    toast.success("Friend has been added!", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1500,
+    });
   };
   const rejectRequest = async (id) => {
     await deleteDoc(

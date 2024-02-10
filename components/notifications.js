@@ -14,12 +14,18 @@ import {
 } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Link from "next/link";
-export default function Notifications({ count }) {
+import { useRouter } from "next/router";
+export default function Notifications() {
   const [user, loading] = useAuthState(auth);
   const [notifications, setNotifications] = useState([]);
+  const route = useRouter();
   const getNotifications = async () => {
+    if (!user) {
+      route.push("/auth/login");
+      return;
+    }
     if (loading) return;
-    if (!user) return route.push("/auth/login");
+
     const docRef = collection(
       db,
       `users/${user.uid}/allNotifications/${user.uid}/notifications`

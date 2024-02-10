@@ -26,31 +26,33 @@ export default function Dashboard() {
     getData();
   }, [user, loading]);
   return (
-    <div className="flex flex-col py-4 w-full bg-white p-0.5 sm:p-10 rounded-lg">
-      <h1 className="text-2xl font-bold py-2">Dashboard</h1>
-      <Link href="/myposts">
-        <button className="text-lg font-medium py-2">
-          {" "}
-          <h1>My Posts</h1>
+    user && (
+      <div className="flex flex-col py-4 w-full bg-white p-0.5 sm:p-10 rounded-lg">
+        <h1 className="text-2xl font-bold py-2">Dashboard</h1>
+        <Link href="/myposts">
+          <button className="text-lg font-medium py-2">
+            {" "}
+            <h1>My Posts</h1>
+          </button>
+        </Link>
+        <Link href="/mypals">
+          <button className="text-lg font-medium py-2">
+            <h1>My Pals</h1>
+          </button>
+        </Link>
+        <Link href="/allnotifications">
+          <button className="text-lg font-medium py-2">Notifications</button>
+        </Link>
+        <Link href="/settings">
+          <button className="text-lg font-medium py-2">Settings</button>
+        </Link>
+        <button
+          className="font-medium text-white bg-gray-800 py-2 px-4 my-6 rounded-lg"
+          onClick={() => auth.signOut()}
+        >
+          Sign out
         </button>
-      </Link>
-      <Link href="/mypals">
-        <button className="text-lg font-medium py-2">
-          <h1>My Pals</h1>
-        </button>
-      </Link>
-      <Link href="/allnotifications">
-        <button className="text-lg font-medium py-2">Notifications</button>
-      </Link>
-      <Link href="/settings">
-        <button className="text-lg font-medium py-2">Settings</button>
-      </Link>
-      <button
-        className="font-medium text-white bg-gray-800 py-2 px-4 my-6 rounded-lg"
-        onClick={() => auth.signOut()}
-      >
-        Sign out
-      </button>
-    </div>
+      </div>
+    )
   );
 }

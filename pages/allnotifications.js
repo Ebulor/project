@@ -8,6 +8,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { db, auth } from "../utils/firebase";
 
 export default function AllNotifications() {
+  const [user, loading] = useAuthState(auth);
+
   let check = true;
 
   const route = useRouter();
@@ -16,11 +18,17 @@ export default function AllNotifications() {
   else if (route.query.value === "friendRequests") {
     check = false;
   }
+  useEffect(() => {
+    if (loading) return;
+    if (!user) route.push("/auth/login");
+  }, [user, loading]);
 
   return (
-    <section className="my-20 p-8 shadow-lg rounded-lg max-w-full mx-auto w-full bg-white">
-      <Tabs></Tabs>
-      <div>{check ? <Notifications /> : <FriendRequests />}</div>
-    </section>
+    user && (
+      <section className="my-20 p-8 shadow-lg rounded-lg max-w-full mx-auto w-full bg-white">
+        <Tabs></Tabs>
+        <div>{check ? <Notifications /> : <FriendRequests />}</div>
+      </section>
+    )
   );
 }
