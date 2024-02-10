@@ -43,6 +43,15 @@ export default function MyPosts() {
 
   const deletePost = async (id) => {
     const docRef = doc(db, "posts", id);
+
+    const commentRef = query(collection(db, `posts/${id}/comments`));
+
+    const toDelete = await getDocs(commentRef);
+
+    toDelete.forEach((item) => {
+      const ID = item.id;
+      deleteDoc(doc(db, `posts/${id}/comments/`, ID));
+    });
     await deleteDoc(docRef);
   };
   useEffect(() => {

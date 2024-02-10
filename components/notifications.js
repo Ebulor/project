@@ -11,6 +11,8 @@ import {
   getDoc,
   query,
   getDocs,
+  where,
+  orderBy,
 } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Link from "next/link";
@@ -19,6 +21,42 @@ export default function Notifications() {
   const [user, loading] = useAuthState(auth);
   const [notifications, setNotifications] = useState([]);
   const route = useRouter();
+
+  const checkNotifications = async () => {
+    const collectionRef = collection(db, "posts");
+    const commentRef = collection(
+      db,
+      `users/${user.uid}/allNotifications/${user.uid}/notifications`
+    );
+    const commentSnap = await getDocs(commentRef);
+    commentSnap.forEach(async (comment) => {
+      // const q = query(collectionRef, where("postId", "==", comment.ref));
+      // const get = await getDocs(q);
+      //console.log(comment.data().postId);
+      const usernameRef = doc(db, "posts", comment.data().postId);
+      const dataSnap = await getDoc(usernameRef);
+
+      if (dataSnap.exists()) {
+      } else {
+        const q = query(commentRef, where("postId", "==", dataSnap.id));
+        const toDelete = await getDocs(q);
+
+        console.log(toDelete);
+
+        toDelete.forEach((item) => {
+          const ID = item.id;
+          deleteDoc(
+            doc(
+              db,
+              `users/${user.uid}/allNotifications/${user.uid}/notifications/`,
+              ID
+            )
+          );
+        });
+      }
+    });
+  };
+
   const getNotifications = async () => {
     if (!user) {
       route.push("/auth/login");
@@ -31,7 +69,9 @@ export default function Notifications() {
       `users/${user.uid}/allNotifications/${user.uid}/notifications`
     );
 
-    const unsubscribe = onSnapshot(docRef, (snapshot) => {
+    const k = query(docRef, orderBy("timestamp", "desc"));
+
+    const unsubscribe = onSnapshot(k, (snapshot) => {
       setNotifications(
         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
@@ -70,6 +110,7 @@ export default function Notifications() {
     });
   };
   useEffect(() => {
+    checkNotifications();
     getNotifications();
   }, [user, loading]);
 
