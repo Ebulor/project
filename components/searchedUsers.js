@@ -85,7 +85,7 @@ export default function SearchedUsers({
           <Link
             className="ml-auto"
             href={{
-              pathname: "/friendProfile",
+              pathname: "/friend_profile",
               query: { value: id },
             }}
           >
